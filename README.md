@@ -1,1 +1,1 @@
-# protohackers-solutions
+# Protohacker
