@@ -26,14 +26,37 @@ source-repository head
 library
   exposed-modules:
       Lib
+      Protohacker.Servers.Proto2
+      Protohacker.Servers.Smoke
   other-modules:
       Paths_Protohacker
   hs-source-dirs:
       src
-  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints
   build-depends:
       base >=4.7 && <5
+    , bits
+    , bytestring
+    , cereal
+    , containers
+    , focus
+    , hashable
     , network
+    , network-run
+    , stm
+    , stm-containers
+  default-language: Haskell2010
+
+executable proto2
+  main-is: Main.hs
+  other-modules:
+      Paths_Protohacker
+  hs-source-dirs:
+      proto2
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      Protohacker
+    , base >=4.7 && <5
   default-language: Haskell2010
 
 executable smoke
@@ -42,7 +65,7 @@ executable smoke
       Paths_Protohacker
   hs-source-dirs:
       smoke
-  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       Protohacker
     , base >=4.7 && <5
@@ -55,7 +78,7 @@ test-suite Protohacker-test
       Paths_Protohacker
   hs-source-dirs:
       test
-  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
   build-depends:
       Protohacker
     , base >=4.7 && <5

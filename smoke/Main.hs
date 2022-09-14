@@ -1,6 +1,6 @@
 module Main (main) where
 
-import Lib
+import Protohacker.Servers.Smoke
 
 main :: IO ()
-main = someFunc
+main = start
