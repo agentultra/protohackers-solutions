@@ -13,6 +13,7 @@ import qualified Data.ByteString as B
 import Data.ByteString.Internal (w2c)
 import qualified Data.Map.Strict as SM
 import Data.Hashable
+import Data.Maybe
 import Data.Serialize
 import Focus (adjust, lookupWithDefault)
 import Network.Run.TCP
@@ -77,6 +78,12 @@ start = do
 
 tickerServer :: Map ClientId (SM.Map Int Int) -> Socket -> IO ()
 tickerServer clientTickers s = do
+  putStrLn "Received connection..."
+  peerAddr <- getPeerName s
+  (peerHost, peerService) <-
+    getNameInfo [NI_NUMERICHOST, NI_NUMERICSERV] True True peerAddr
+  putStrLn $ "Host: " ++ fromMaybe "Unavailable" peerHost
+  putStrLn $ "Service: " ++ fromMaybe "Unknown" peerService
   msg <- recv s 1024
   unless (B.null msg) $
     case decode @Command msg of
